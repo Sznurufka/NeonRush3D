@@ -1,0 +1,29 @@
+
+name: Build Neon Rush 3D APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:4.3.0
+    steps:
+      - name: Download project
+        uses: actions/checkout@v4
+
+      - name: Create build folder
+        run: mkdir -p build
+
+      - name: Build Android APK
+        run: godot --headless --path . --export-debug "Android" build/NeonRush3D.apk
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: NeonRush3D-APK
+          path: build/NeonRush3D.apk
