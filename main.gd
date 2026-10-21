@@ -78,7 +78,7 @@ func _unhandled_input(event: InputEvent) -> void:
         if event.pressed:
             touch_start = event.position
         elif game_active and not shop_open:
-            var delta := event.position - touch_start
+            var delta: Vector2 = event.position - touch_start
             if delta.length() < 30.0:
                 if event.position.x < get_viewport().get_visible_rect().size.x * 0.33:
                     _change_lane(-1)
